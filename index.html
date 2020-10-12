@@ -1,0 +1,188 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <link rel="stylesheet" href="style.css" />
+
+    <link href="https://fonts.googleapis.com/css2?family=Lobster&family=Solway&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+    
+    
+    <title>Transaksi Database</title>
+  </head>
+  <body>
+    <!-- Start header -->
+    <header class="top-header">
+      <nav class="navbar header-nav navbar-expand-lg">
+          <div class="container-fluid">
+            <nav class="navbar ">
+              <span class="navbar-brand mb-0 h1">Kamtina Musyfirah</span>
+            </nav>
+
+              <div class="collapse navbar-collapse justify-content-end" id="navbar-wd">
+                  <ul class="navbar-nav">
+                      <li><a class="nav-link active" href="#">Home</a></li>
+                      <li><a class="nav-link" href="https://kamtinamusyfirah.github.io/basdat-assignment2/">Evaluation Plan</a></li>
+                      <li><a class="nav-link" href="https://kamtinamusyfirah.github.io/basdat-assignment1/">Query</a></li>
+                      <li><a class="nav-link" href="https://kamtinamusyfirah.github.io/assignment3-proses-desain-database/">Database Design</a></li>
+                      <li><a class="nav-link" href="#">Transaction Concept</a></li>
+                      <li><a class="nav-link" href="#">About</a></li>
+                  </ul>
+              </div>
+          </div>
+      </nav>
+  </header>
+  <!-- End header -->
+
+  <!--Carousel-->
+  <div class="jumbotron jumbotron-fluid">
+    <div class="container">
+      <h1 class="display-4">Basis Data II</h1>
+    </div>
+  </div>
+  <!--End Carousel-->
+  <h1>TRANSACTION CONCEPT</h1>
+
+  <!-- section -->
+  <div class="container">
+    <div class="card">
+        <div class="contentBx">
+            <h2>Transaction</h2>
+            <p>Transaction adalah unit program execution yang mengakses dan memungkinkan untuk memperbarui berbagai item data.
+              Dan juga transaction ini merupakan satu fitur DBMS relasional yang cukup penting bahkan menjadi keunggulan dari DBMS relasional secara umum.
+            </p>
+            <p>
+              Dua masalah utama yang harus ditangani dalam transaksi yaitu :
+              <ol>
+                <li>Berbagai jenis kegagalan, seperti kegagalan hardware dan sistem crash</li>
+                <li>Concurrent execution of multiple transactions</li>
+              </ol>
+            </p>
+            <p>
+              Untuk menjaga integritas data sistem database harus memastikan:
+              <ol>
+                <li>Atomicity
+                  <p>
+                    Semua operasi transaksi tercermin dengan benar di database atau tidak.
+                  </p>
+                </li>
+                <li>Consistency
+                  <p>
+                    Data tetap konsisten baik sebelum maupun sesudah transaksi.
+                  </p>
+                </li>
+                <li>Isolation
+                  <p>
+                    Jika ada beberapa transaksi yang terjadi, maka transaksi yang pertama akan di eksekusi terlebih dahulu sampai selesai.
+                    Kemudian diikuti oleh transaksi yang lainnya. Isolasi dapat dilakukan dengan menjalankan transaksi secara serial.
+                  </p>
+                </li>
+                <li>Durability
+                  <p>
+                    Memastikan agar semua perubahan selama transaksi tetap tersimpan di database secara permanen meskipun transaksi yang dilakukan mengalami kegagalan.
+                  </p>
+                </li>
+              </ol>
+            </p>
+        </div>
+    </div>
+
+    <div class="card">
+      <div class="contentBx">
+          <h2>Contoh Kasus</h2>
+          <p> 
+                  Contoh kasus dari transaksi ini adalah misalnya mahasiswa A ingin meminjam buku 
+                  Database System Concepts. Jumlah mahasiswa yang telah meminjam buku tersebut adalah 10 orang dan 
+                  jumlah buku Database System Concepts yang tersisa yaitu 5 buku.
+                  <br>
+                  Berikut adalah proses transaksinya :
+                  <ol style="color: black;">
+                    <li><b>read</b> (jmlhMahasiswaMeminjamBuku)</li>
+                    <li>jmlhMahasiswaMeminjamBuku = jmlhMahasiswaMeminjamBuku + 1</li>
+                    <li><b>write</b> (jmlhMahasiswaMeminjamBuku)</li>
+                    <li><b>read</b> (jmlhBukuTersisa)</li>
+                    <li>jmlhBukuTersisa = jmlhBukuTersisa - 1</li>
+                    <li><b>write</b> (jmlhBukuTersisa)</li>
+                  </ol>            
+          </p>
+          <p>
+            Berikut, penjelasan ACID pada contoh kasus mengenai perpusatakaan ini:
+            <ol>
+              <li>Atomicity
+                <p>
+                  Semua step pada transaksi ini harus dilakukan. Jika ada step yang gagal saat melakukan transaksi, contohnya pada step yang ke-3,
+                  maka seluruh perubahan akan dibatalkan dan dikembalikan ke kondisi awal serta transaksi dianggap gagal.
+                </p>
+              </li>
+              <li>Consistency
+                <p>
+                  Transaksi pada kasus ini dikatakan konsiten jika, jumlah stok buku Database System Concepts sesudah dan sebelum transaksi sama.
+                  Sebelum transaksi, jumlah buku yang tersisa yaitu <b>5 buku</b> dan jumlah mahasiswa yang telah meminjam buku tersebut yaitu <b>10 mahasiswa</b>.
+                  Sehingga, jumlah stok buku secara keseluruhan sebelum transaksi yaitu <b>15 buku</b>. Setelah transaksi dilakukan, jumlah mahasiswa yang meminjam buku ditambah 1 sehingga hasilnya <b>11 mahasiswa</b>,
+                  dan jumlah buku yang tersisa dikurang 1 sehingga hasilnya <b>4 buku</b>. Sehingga, jumlah stok buku secara keseluruhan setelah transaksi yaitu <b>15 buku</b>
+                </p>
+                <p>Dan dapat disimpulkan, bahwa kasus ini dapat dikatakan konsisten karena jumlah stok buku Database System Concepts sesudah dan sebelum transaksi sama.</p>
+              </li>
+
+              <li>Isolation
+                <p>
+                  Jika ada transaksi lain yang terjadi saat transaksi yang pertama dilakukan, maka transaksi yang kedua ini harus menunggu sampai transaksi yang pertama selesai.
+                  Hal ini dilakukan untuk menjaga agar data tersebut tetap konsisten.
+                </p>
+              </li>
+
+              <li>Durability
+                <p>Setelah transaksi selesai, Semua perubahan akan disimpan didalam database meskipun ada kegagalan sistem yang terjadi.</p>
+              </li>
+            </ol>
+          </p>
+      </div>
+    </div>
+
+  <div class="about1">
+    <h2>ABOUT</h2>
+    <hr>
+  </div>
+
+  <div class="about">
+    <div class="box">
+      <div class="icon">
+        <i class="fa fa-map-marker" aria-hidden="true"></i>
+      </div>
+      <div class="details">
+        <h3>Sinjai</h3>
+      </div>
+    </div>
+
+    <div class="box">
+      <div class="icon">
+        <i class="fa fa-github" aria-hidden="true"></i>
+      </div>
+      <div class="details">
+        <h3>KamtinaMusyfirah</h3>
+      </div>
+    </div>
+    
+    <div class="box">
+      <div class="icon">
+        <i class="fa fa-envelope" aria-hidden="true"></i>
+      </div>
+      <div class="details">
+        <h3>kamtinamusyfirah12@gmail.com</h3>
+      </div>
+    </div>
+  </div>
+  <!-- end section -->
+
+      <!-- Optional JavaScript -->
+      <!-- jQuery first, then Popper.js, then Bootstrap JS -->
+      <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
+      <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js" integrity="sha384-9/reFTGAW83EW2RDu2S0VKaIzap3H66lZH81PoYlFhbGU+6BZp6G7niu735Sk7lN" crossorigin="anonymous"></script>
+      <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js" integrity="sha384-B4gt1jrGC7Jh4AgTPSdUtOBvfO8shuf57BaghqFfPlYxofvL8/KUEfYiJOMMV+rV" crossorigin="anonymous"></script>
+  </body>
+</html>
